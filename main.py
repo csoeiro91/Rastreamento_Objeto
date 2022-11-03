@@ -1,5 +1,5 @@
 import cv2
-import sys
+
 
 source_video = "futebol.mp4"
 cap = cv2.VideoCapture(source_video)
@@ -15,17 +15,21 @@ if __name__ == "__main__":
 
     first_frame = cv2.imread("futebol.png")
 
-    #ret, first_frame = cap.read()
-
-    #if not ret: sys.exit()
-    params = cv2.TrackerDaSiamRPN_Params()
+    #OPENCV 4.5.3.56
+    '''params = cv2.TrackerDaSiamRPN_Params()
     params.model = "model/DaSiamRPN/dasiamrpn_model.onnx"
     params.kernel_r1 = "model/DaSiamRPN/dasiamrpn_kernel_r1.onnx"
     params.kernel_cls1 = "model/DaSiamRPN/dasiamrpn_kernel_cls1.onnx"
     tracker = cv2.TrackerDaSiamRPN_create(params)
 
     box = selectROIfromFrame(first_frame)
+    ok = tracker.init(first_frame, box)'''
+
+
+    box = selectROIfromFrame(first_frame)
+    tracker = cv2.TrackerMIL_create()
     ok = tracker.init(first_frame, box)
+
 
     while cap.isOpened():
 
